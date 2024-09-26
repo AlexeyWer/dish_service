@@ -1,0 +1,32 @@
+version: '3.9'
+services:
+  srv:
+    build: .
+    env_file: .env
+    ports:
+      - "10000:8080"
+    command: python /app/srv/main.py
+    volumes:
+      - ./srv:/app/srv/
+      - ./tests:/app/tests/
+      - ./migrations:/app/migrations/
+      - ./alembic.ini:/app/alembic.ini
+    depends_on:
+    - postgresql
+  
+  postgresql:
+    environment:
+      - POSTGRES_DBNAME=dishes
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+    build:
+      context: ./postgresql/
+    ports:
+      - "10001:5432"
+    volumes:
+      - $PWD/dishes-pg-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5

@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "dish-service"
+version = "0.1.0"
+description = ""
+authors = ["Алексей Вернер <werneralexey@mail.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+aiohttp = "^3.10.6"
+aiohttp-cors = "^0.7.0"
+alembic = "^1.13.3"
+asyncpg = "^0.29.0"
+sentry-sdk = "^2.14.0"
+sqlalchemy = "^2.0.35"
+orjson = "^3.10.7"
+aiohttp-apispec = "^2.2.3"
+marshmallow = "^3.22.0"
+
+
+[tool.poetry.group.dev.dependencies]
+psycopg2-binary = "^2.9.9"
+sqlalchemy-utils = "^0.41.2"
+faker = "^30.0.0"
+pytest-aiohttp = "^1.0.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
