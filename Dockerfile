@@ -13,12 +13,12 @@ ENV PIP_DEFAULT_TIMEOUT=100 \
     PIP_NO_CACHE_DIR=1 \
     POETRY_VERSION=1.8.3
 
-RUN apk add --update --no-cache gcc make g++ libffi-dev libpa-dev liblz4-dev libuwind-dev
+RUN apk add --update --no-cache gcc make g++ libffi-dev libpq-dev libunwind-dev
 
 RUN pip install "poetry==$POETRY_VERSION"
-RUN python -m venv /venv
 RUN pip install "typing-extensions>=4.1.0"
 
-COPY pyproject.toml poetry.lock README.md alembic.ini srv/ tests/ migrations/ /app/
+COPY pyproject.toml poetry.lock README.md alembic.ini srv/ tests/ alembic/ /app/
+RUN poetry export --with=dev -f requirements.txt | pip install -r /dev/stdin
 
 CMD ["python", "/app/srv/main.py"]

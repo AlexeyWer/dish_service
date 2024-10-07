@@ -4,6 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Алексей Вернер <werneralexey@mail.ru>"]
 readme = "README.md"
+packages = [{ include = "srv"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
@@ -16,13 +17,15 @@ sqlalchemy = "^2.0.35"
 orjson = "^3.10.7"
 aiohttp-apispec = "^2.2.3"
 marshmallow = "^3.22.0"
-
+argparse = "^1.4.0"
+setuptools = "^75.1.0"
 
 [tool.poetry.group.dev.dependencies]
 psycopg2-binary = "^2.9.9"
 sqlalchemy-utils = "^0.41.2"
 faker = "^30.0.0"
 pytest-aiohttp = "^1.0.5"
+python-dotenv = "^1.0.1"
 
 [build-system]
 requires = ["poetry-core"]

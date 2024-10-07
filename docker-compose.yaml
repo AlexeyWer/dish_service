@@ -11,6 +11,7 @@ services:
       - ./tests:/app/tests/
       - ./migrations:/app/migrations/
       - ./alembic.ini:/app/alembic.ini
+      - ./alembic:/app/alembic/
     depends_on:
     - postgresql
   
