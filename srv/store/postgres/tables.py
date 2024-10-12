@@ -38,6 +38,7 @@ PRODUCTS_IN_DISHES = sa.Table(
     sa.Column("quantity", psql.NUMERIC(15, 3), sa.CheckConstraint("quantity > 0"), nullable=False, comment="Кол-во продукта в блюде"),
     sa.Column("created", sa.DateTime(), server_default=sa.func.now()),
     sa.Column("updated", sa.DateTime(), server_default=sa.func.now()),
+    sa.UniqueConstraint("dish", "product"),
     comment="Продукты в блюдах",
 )
 

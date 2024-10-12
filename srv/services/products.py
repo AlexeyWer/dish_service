@@ -8,20 +8,20 @@ from srv.store.postgres.database.products import ProductsDB
 class ProductsService:
     db = ProductsDB()
 
-    async def create_or_update_product(self, conn: AsyncConnection, data: dict) -> None:
+    async def create_or_update_product(self, conn: AsyncConnection, data: dict) -> dict:
         """
         Создать/обновить продукт.
         """
-        await self.db.create_or_update_product(conn, data)
+        return await self.db.create_or_update_record(conn, data, self.db.products)
     
     async def get_products(self, conn: AsyncConnection, limit: int = 100, offset: int = 0) -> Sequence[Row]:
         """
         Получить продукты.
         """
-        return await self.db.get_products(conn, limit, offset)
+        return await self.db.get_records(conn, self.db.products, "name", limit, offset)
 
-    async def delete_product(self, conn: AsyncConnection, pk: int | None, column: str | None, value: Any | None) -> Sequence[Row]:
+    async def delete_product(self, conn: AsyncConnection, record_id: int | None, column: str | None, value: Any | None) -> Sequence[Row]:
         """
         Получить продукты.
         """
-        await self.db.delete_product(conn, pk, column, value)
+        await self.db.delete_record(conn, self.db.products, record_id, column, value)

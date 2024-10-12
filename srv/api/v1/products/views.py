@@ -16,13 +16,15 @@ class ProductsView(BaseView):
     @docs(
         tags=tags,
         summary="Создать/обновить продукт",
-        responses=BaseView.BASE_DOCS_RESPONSES | {HTTPStatus.OK: {"description": HTTPStatus.OK.phrase}}
+        responses=BaseView.BASE_DOCS_RESPONSES | {
+            HTTPStatus.OK: {"description": HTTPStatus.OK.phrase, "schema": schemas.ProductResponse}
+            }
     )
     @json_schema(schemas.Product)
     async def post(self) -> web.Response:
         body = self.request["json"]
-        await service.create_or_update_product(self.pg_conn, body)
-        return web.Response()
+        resp = await service.create_or_update_product(self.pg_conn, body)
+        return web.json_response(text=schemas.ProductResponse().dumps(resp))
 
     @docs(
         tags=tags,
@@ -44,5 +46,5 @@ class ProductsView(BaseView):
     @querystring_schema(schemas.DeleteProduct)
     async def delete(self) -> web.Response:
         query: dict = self.request["querystring"]
-        await service.delete_product(self.pg_conn, query["pk"], "name", query["name"])
+        await service.delete_product(self.pg_conn, query["id"], "name", query["name"])
         return web.Response(status=HTTPStatus.OK)

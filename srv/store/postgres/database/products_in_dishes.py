@@ -9,14 +9,21 @@ from srv.store.postgres.database.base import BaseDB
 
 
 class ProductsInDishesDB(BaseDB):
-    async def add_product_in_dish(self, conn: AsyncConnection, data: dict) -> int:
+    async def get_products_in_dishes(self, conn: AsyncConnection, dish_name: str) -> Sequence[Row]:
         """
-        Создать/обновить продукт.
+        Получить продукты в блюде.
         """
-        await self.create_or_update_record(conn, data, self.products)
-    
-    async def get_products(self, conn: AsyncConnection, limit: int, offset: int) -> Sequence[Row]:
-        """
-        Получить продукты.
-        """
-        return await self.get_records(conn, self.products, "name", limit, offset)
+        resp = await conn.execute(
+            select(
+                self.products_in_dishes.c.id,
+                self.products.c.name,
+                self.products_in_dishes.c.quantity,
+                self.products.c.measure,
+            )
+            .select_from(self.dishes)
+            .join(self.products_in_dishes, self.products_in_dishes.c.dish == self.dishes.c.id)
+            .join(self.products, self.products.c.id == self.products_in_dishes.c.product)
+            .where(self.dishes.c.name == dish_name)
+            .order_by(self.products_in_dishes.c.id)
+        )
+        return resp.fetchall()

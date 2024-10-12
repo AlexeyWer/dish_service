@@ -10,4 +10,7 @@ alembic_upgrade:
 	docker-compose -p {PROJECT} run --rm srv alembic upgrade head
 
 alembic_revision:
-	docker-compose -p ${PROJECT} run --rm --no-deps srv alembic revision --autogenerate -m "${MESSAGE}"
+	docker-compose -p ${PROJECT} run --rm srv alembic revision --autogenerate -m "${MESSAGE}"
+
+alembic_downgrade:
+	docker-compose -p ${PROJECT} run --rm srv alembic downgrade -1

@@ -28,7 +28,7 @@ class Middleware:
         """
         try:
             return await handler(request)
-        except HTTPException as http_exc:
+        except HTTPException:
             raise
         except Exception as exc:
             logger.error(f"Не обработанная ошибка:\n{exc}", exc_info=True)
