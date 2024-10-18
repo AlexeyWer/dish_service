@@ -8,6 +8,5 @@ from srv.web.context import Context
 
 
 def v1_routes(app: Application, ctx: Context) -> None:
-    path_prefix = f"/{ctx.config.name}/api/v1"
     for create_routes in [healthy_routes, products_routes, dishes_routes, products_in_dishes_routes]:
-        create_routes(app, path_prefix)
+        create_routes(app, ctx.path_v1)

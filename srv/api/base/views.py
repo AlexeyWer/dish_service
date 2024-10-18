@@ -1,10 +1,9 @@
 from http import HTTPStatus
 
 from sqlalchemy.ext.asyncio import AsyncConnection
-from aiohttp.web import View, Request, Response
+from aiohttp.web import View, Request
 from aiohttp_cors import CorsViewMixin
 
-from srv.api.base.schemas import BaseSchema
 from srv.web.context import Context
 
 

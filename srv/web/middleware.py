@@ -39,8 +39,6 @@ class Middleware:
         """
         Создать подключение к postgres в зависимости от типа запроса.
         """
-        if request.path.endswith(("liveness", "docs")):
-            return await handler(request)
         if request.method in ("GET", "HEAD", "OPTION"):
             create_connect = self.ctx.postgres_accessor.engine.connect
         else:

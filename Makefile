@@ -2,15 +2,23 @@
 PROJECT ?= "dish-service"
 export PYTHONPATH := $(shell pwd):$(PYTHONPATH)
 
+build:
+	docker-compose -p ${PROJECT} build $(SERVICE)
 
-up_all:
-	docker-compose -p ${PROJECT} up -d
+up:
+	docker-compose -p ${PROJECT} up -d $(SERVICE)
 
-alembic_upgrade:
-	docker-compose -p {PROJECT} run --rm srv alembic upgrade head
+restart:
+	docker-compose -p ${PROJECT} restart $(SERVICE)
 
-alembic_revision:
+stop:
+	docker-compose -p ${PROJECT} stop $(SERVICE)
+
+db_upgrade:
+	docker-compose -p ${PROJECT} run --rm srv alembic upgrade head
+
+db_revision:
 	docker-compose -p ${PROJECT} run --rm srv alembic revision --autogenerate -m "${MESSAGE}"
 
-alembic_downgrade:
+db_downgrade:
 	docker-compose -p ${PROJECT} run --rm srv alembic downgrade -1

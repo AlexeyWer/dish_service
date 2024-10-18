@@ -12,7 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class Server:
-    def __init__(self, args: Namespace):
+    def __init__(self, args: Namespace | None = None):
         self.args = args
         self.app = Application(client_max_size=200 * 1024 ** 2)
         self.ctx = Context(self.app)

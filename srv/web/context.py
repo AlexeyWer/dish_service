@@ -16,6 +16,7 @@ class Context:
     
     def __init__(self, app: Application):
         self.app = app
+        self.path_v1 = f"/{self.config.name}/api/v1"
         self.__init_ctx()
 
     
