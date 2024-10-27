@@ -34,7 +34,7 @@ class ProductsInDishesView(BaseView):
     @querystring_schema(schemas.GetProductsInDishQuery)
     async def get(self) -> web.Response:
         query: dict = self.request["querystring"]
-        if resp := await service.get_products_in_dishes(self.pg_conn, query["name"]):
+        if resp := await service.get_products_in_dishes(self.pg_conn, query["id"]):
             return web.json_response(text=schemas.ProductInDishResponse(many=True).dumps(resp))
         return web.Response(status=HTTPStatus.NO_CONTENT)
     

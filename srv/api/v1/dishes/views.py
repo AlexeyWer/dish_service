@@ -46,5 +46,5 @@ class DishesView(BaseView):
     @querystring_schema(schemas.DeleteDish)
     async def delete(self) -> web.Response:
         query: dict = self.request["querystring"]
-        await service.de(self.pg_conn, query["id"], "name", query["name"])
+        await service.delete_dish(self.pg_conn, query["id"], "name", query["name"])
         return web.Response(status=HTTPStatus.OK)

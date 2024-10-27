@@ -22,3 +22,6 @@ db_revision:
 
 db_downgrade:
 	docker-compose -p ${PROJECT} run --rm srv alembic downgrade -1
+
+test:
+	docker-compose -p ${PROJECT} run --rm -e POSTGRES_DB_NAME=test_dishes srv pytest ./tests/${path} -vv --disable-warnings

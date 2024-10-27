@@ -14,11 +14,11 @@ class ProductsInDishesService:
         """
         return await self.db.create_or_update_record(conn, data, self.db.products_in_dishes)
     
-    async def get_products_in_dishes(self, conn: AsyncConnection, dish_name: str) -> Sequence[Row]:
+    async def get_products_in_dishes(self, conn: AsyncConnection, dish_id: int) -> Sequence[Row]:
         """
         Получить продукты в блюде.
         """
-        return await self.db.get_products_in_dishes(conn, dish_name)
+        return await self.db.get_products_in_dishes(conn, dish_id)
 
     async def delete_product_in_dish(self, conn: AsyncConnection, record_id: int) -> None:
         """

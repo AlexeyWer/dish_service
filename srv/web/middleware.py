@@ -31,6 +31,7 @@ class Middleware:
         except HTTPException:
             raise
         except Exception as exc:
+            logging.warning(exc, exc_info=True)
             logger.error(f"Не обработанная ошибка:\n{exc}", exc_info=True)
             return Response(status=HTTPStatus.INTERNAL_SERVER_ERROR, text="Server error")
     

@@ -57,7 +57,7 @@ class ProductInDish(BaseSchema):
 
 
 class GetProductsInDishQuery(BaseSchema):
-    name = fields.String(load_default=None, metadata={"description": "Наименование блюда"})
+    id = fields.Integer(require=True, metadata={"description": "ID блюда"})
 
 
 class ProductInDishResponse(BaseSchema):

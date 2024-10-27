@@ -56,14 +56,14 @@ class BaseDB(Tables):
     async def delete_record(
         self, conn: AsyncConnection,
         table: Table,
-        record_id: int | None,
-        column: str | None,
-        value: Any | None,
+        record_id: int | None = None,
+        column: str | None = None,
+        value: Any | None = None,
     ) -> None:
         """
         Удалить запись из таблицы.
         """
-        if id:
+        if record_id:
             condition = table.c.id == record_id
         elif column and value and column in table.columns:
             condition = table.columns.get(column) == value
