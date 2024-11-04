@@ -20,8 +20,8 @@ class ProductsInDishesService:
         """
         return await self.db.get_products_in_dishes(conn, dish_id)
 
-    async def delete_product_in_dish(self, conn: AsyncConnection, record_id: int) -> None:
+    async def delete_product_in_dish(self, conn: AsyncConnection, dish_id: int, record_id: int) -> None:
         """
         Удалить продукт из блюда.
         """
-        await self.db.delete_record(conn, self.db.products_in_dishes, record_id=record_id)
+        await self.db.delete_product_in_dish(conn, dish_id, record_id)

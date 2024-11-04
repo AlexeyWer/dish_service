@@ -69,3 +69,7 @@ class ProductInDishResponse(BaseSchema):
 
 class DeleteProductInDish(BaseSchema):
     id = fields.Integer(load_default=None, metadata={"description": "ID записи"})
+
+
+class DishID(BaseSchema):
+    id = fields.Integer(load_default=None, metadata={"description": "ID блюда"})
